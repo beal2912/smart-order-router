@@ -8,7 +8,7 @@ import {
 
 //ChainId as UNIChainId,
 
-export declare enum ChainId {
+export enum ChainId {
   MAINNET = 1,
   GOERLI = 5,
   SEPOLIA = 11155111,
