@@ -1,5 +1,5 @@
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { ChainId, TradeType } from '@uniswap/sdk-core';
+import { TradeType } from '@uniswap/sdk-core';
 import { BigNumber } from 'ethers/lib/ethers';
 
 import {
@@ -10,7 +10,7 @@ import {
 } from '../routers';
 import { Erc20__factory } from '../types/other/factories/Erc20__factory';
 import { Permit2__factory } from '../types/other/factories/Permit2__factory';
-import { CurrencyAmount, log, SWAP_ROUTER_02_ADDRESSES } from '../util';
+import { ChainId, CurrencyAmount, log, SWAP_ROUTER_02_ADDRESSES } from '../util';
 
 import { IPortionProvider } from './portion-provider';
 import { permit2Address } from '@uniswap/permit2-sdk';

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ChainId, Token } from '@uniswap/sdk-core';
+import { Token } from '@uniswap/sdk-core';
 import { FeeAmount, Pool } from '@uniswap/v3-sdk';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 
 import { unparseFeeAmount } from '../../util/amounts';
-import { WRAPPED_NATIVE_CURRENCY } from '../../util/chains';
+import { ChainId, WRAPPED_NATIVE_CURRENCY } from '../../util/chains';
 import { log } from '../../util/log';
 import { ProviderConfig } from '../provider';
 import {
@@ -45,12 +45,16 @@ import {
   USDC_OPTIMISM_GOERLI,
   USDC_POLYGON,
   USDC_SEPOLIA, USDC_ZKSYNC, USDCE_ZKSYNC,
+  USDC_EVMOS,
+  USDC_NOBLE_EVMOS,
+  USDC_TEVMOS,
   USDT_ARBITRUM,
   USDT_BNB,
   USDT_GOERLI,
   USDT_MAINNET,
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
+  USDT_EVMOS,
   WBTC_ARBITRUM,
   WBTC_GNOSIS,
   WBTC_GOERLI,
@@ -167,6 +171,16 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.ROOTSTOCK]: [WRAPPED_NATIVE_CURRENCY[ChainId.ROOTSTOCK]!],
   [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
   [ChainId.ZKSYNC]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZKSYNC]!, USDCE_ZKSYNC, USDC_ZKSYNC],
+  [ChainId.TEVMOS]: [
+    WRAPPED_NATIVE_CURRENCY[ChainId.TEVMOS],
+    USDC_TEVMOS,
+  ],
+  [ChainId.EVMOS]: [
+    WRAPPED_NATIVE_CURRENCY[ChainId.EVMOS],
+    USDC_EVMOS,
+    USDC_NOBLE_EVMOS,
+    USDT_EVMOS
+  ],
 };
 
 /**
@@ -184,7 +198,7 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
   constructor(
     private chainId: ChainId,
     private poolProvider: IV3PoolProvider
-  ) {}
+  ) { }
 
   public async getPools(
     tokenIn?: Token,

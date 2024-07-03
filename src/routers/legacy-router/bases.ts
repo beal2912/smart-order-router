@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ChainId, Token } from '@uniswap/sdk-core';
+import { Token } from '@uniswap/sdk-core';
 
 import {
   BTC_BNB,
@@ -20,7 +20,7 @@ import {
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI
 } from '../../providers/token-provider';
-import { WRAPPED_NATIVE_CURRENCY } from '../../util/chains';
+import { ChainId, WRAPPED_NATIVE_CURRENCY } from '../../util/chains';
 
 type ChainTokenList = {
   readonly [chainId in ChainId]: Token[];
@@ -79,6 +79,8 @@ export const BASES_TO_CHECK_TRADES_AGAINST = (
     [ChainId.ROOTSTOCK]: [WRAPPED_NATIVE_CURRENCY[ChainId.ROOTSTOCK]!],
     [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
     [ChainId.ZKSYNC]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZKSYNC]!, USDCE_ZKSYNC, USDC_ZKSYNC],
+    [ChainId.TEVMOS]: [WRAPPED_NATIVE_CURRENCY[ChainId.TEVMOS]],
+    [ChainId.EVMOS]: [WRAPPED_NATIVE_CURRENCY[ChainId.EVMOS]],
   };
 };
 

@@ -1,7 +1,8 @@
-import { ChainId, Currency, Ether } from '@uniswap/sdk-core';
+import { Currency, Ether } from '@uniswap/sdk-core';
 import {
   CEUR_CELO,
   CEUR_CELO_ALFAJORES,
+  ChainId,
   CUSD_CELO,
   DAI_MAINNET,
   DAI_ON,

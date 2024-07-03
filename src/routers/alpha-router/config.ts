@@ -1,5 +1,6 @@
-import { ChainId } from '@uniswap/sdk-core';
 
+
+import { ChainId } from '../../util';
 import { AlphaRouterConfig, LowerCaseStringArray } from './alpha-router';
 
 export const DEFAULT_ROUTING_CONFIG_BY_CHAIN = (

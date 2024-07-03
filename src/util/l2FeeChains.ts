@@ -1,4 +1,5 @@
-import { ChainId } from '@uniswap/sdk-core';
+import { ChainId } from "./chains";
+
 
 export const opStackChains = [
   ChainId.OPTIMISM,

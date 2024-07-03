@@ -6,7 +6,6 @@
  */
 import { Protocol } from '@uniswap/router-sdk';
 import {
-  ChainId,
   Currency,
   CurrencyAmount,
   Token,
@@ -15,6 +14,7 @@ import {
 
 import { CacheMode } from './model';
 import { CachedRoutes } from './model/cached-routes';
+import { ChainId } from '../../../util';
 
 /**
  * Abstract class for a RouteCachingProvider.

@@ -3,7 +3,6 @@ import { BaseProvider, JsonRpcProvider } from '@ethersproject/providers';
 import DEFAULT_TOKEN_LIST from '@uniswap/default-token-list';
 import { Protocol, SwapRouter, Trade, ZERO } from '@uniswap/router-sdk';
 import {
-  ChainId,
   Currency,
   Fraction,
   Token,
@@ -84,6 +83,7 @@ import { Erc20__factory } from '../../types/other/factories/Erc20__factory';
 import { SWAP_ROUTER_02_ADDRESSES, WRAPPED_NATIVE_CURRENCY } from '../../util';
 import { CurrencyAmount } from '../../util/amounts';
 import {
+  ChainId,
   ID_TO_CHAIN_ID,
   ID_TO_NETWORK_NAME,
   V2_SUPPORTED,
@@ -439,9 +439,8 @@ export type AlphaRouterConfig = {
 
 export class AlphaRouter
   implements
-    IRouter<AlphaRouterConfig>,
-    ISwapToRatio<AlphaRouterConfig, SwapAndAddConfig>
-{
+  IRouter<AlphaRouterConfig>,
+  ISwapToRatio<AlphaRouterConfig, SwapAndAddConfig> {
   protected chainId: ChainId;
   protected provider: BaseProvider;
   protected multicall2Provider: UniswapMulticallProvider;
@@ -654,6 +653,8 @@ export class AlphaRouter
           );
           break;
         case ChainId.CELO:
+        case ChainId.TEVMOS:
+        case ChainId.EVMOS:
         case ChainId.CELO_ALFAJORES:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
             chainId,
@@ -1099,8 +1100,8 @@ export class AlphaRouter
         [tokenOut],
         partialRoutingConfig
       );
-      const buyFeeBps = tokenOutProperties[tokenOut.address.toLowerCase()]?.tokenFeeResult?.buyFeeBps;
-      const tokenOutHasFot = buyFeeBps && buyFeeBps.gt(0);
+    const buyFeeBps = tokenOutProperties[tokenOut.address.toLowerCase()]?.tokenFeeResult?.buyFeeBps;
+    const tokenOutHasFot = buyFeeBps && buyFeeBps.gt(0);
 
     if (tradeType === TradeType.EXACT_OUTPUT) {
       const portionAmount = this.portionProvider.getPortionAmount(
@@ -1165,8 +1166,8 @@ export class AlphaRouter
     // const gasTokenAccessor = await this.tokenProvider.getTokens([routingConfig.gasToken!]);
     const gasToken = routingConfig.gasToken
       ? (
-          await this.tokenProvider.getTokens([routingConfig.gasToken])
-        ).getTokenByAddress(routingConfig.gasToken)
+        await this.tokenProvider.getTokens([routingConfig.gasToken])
+      ).getTokenByAddress(routingConfig.gasToken)
       : undefined;
 
     const providerConfig: GasModelProviderConfig = {
@@ -2091,31 +2092,31 @@ export class AlphaRouter
     const nativeCurrency = WRAPPED_NATIVE_CURRENCY[this.chainId];
     const nativeAndQuoteTokenV3PoolPromise = !quoteToken.equals(nativeCurrency)
       ? getHighestLiquidityV3NativePool(
-          quoteToken,
-          this.v3PoolProvider,
-          providerConfig
-        )
+        quoteToken,
+        this.v3PoolProvider,
+        providerConfig
+      )
       : Promise.resolve(null);
     const nativeAndAmountTokenV3PoolPromise = !amountToken.equals(
       nativeCurrency
     )
       ? getHighestLiquidityV3NativePool(
-          amountToken,
-          this.v3PoolProvider,
-          providerConfig
-        )
+        amountToken,
+        this.v3PoolProvider,
+        providerConfig
+      )
       : Promise.resolve(null);
 
     // If a specific gas token is specified in the provider config
     // fetch the highest liq V3 pool with it and the native currency
     const nativeAndSpecifiedGasTokenV3PoolPromise =
       providerConfig?.gasToken &&
-      !providerConfig?.gasToken.equals(nativeCurrency)
+        !providerConfig?.gasToken.equals(nativeCurrency)
         ? getHighestLiquidityV3NativePool(
-            providerConfig?.gasToken,
-            this.v3PoolProvider,
-            providerConfig
-          )
+          providerConfig?.gasToken,
+          this.v3PoolProvider,
+          providerConfig
+        )
         : Promise.resolve(null);
 
     const [
@@ -2139,13 +2140,13 @@ export class AlphaRouter
 
     const v2GasModelPromise = this.v2Supported?.includes(this.chainId)
       ? this.v2GasModelFactory.buildGasModel({
-          chainId: this.chainId,
-          gasPriceWei,
-          poolProvider: this.v2PoolProvider,
-          token: quoteToken,
-          l2GasDataProvider: this.l2GasDataProvider,
-          providerConfig: providerConfig,
-        }).catch(_ => undefined) // If v2 model throws uncaught exception, we return undefined v2 gas model, so there's a chance v3 route can go through
+        chainId: this.chainId,
+        gasPriceWei,
+        poolProvider: this.v2PoolProvider,
+        token: quoteToken,
+        l2GasDataProvider: this.l2GasDataProvider,
+        providerConfig: providerConfig,
+      }).catch(_ => undefined) // If v2 model throws uncaught exception, we return undefined v2 gas model, so there's a chance v3 route can go through
       : Promise.resolve(undefined);
 
     const v3GasModelPromise = this.v3GasModelFactory.buildGasModel({

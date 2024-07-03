@@ -1,4 +1,4 @@
-import { ChainId } from '@uniswap/sdk-core';
+
 
 import {
   BatchParams,
@@ -6,6 +6,7 @@ import {
   FailureOverrides,
   QuoteRetryOptions,
 } from '../providers';
+import { ChainId } from './chains';
 
 export const NETWORKS_WITH_SAME_RETRY_OPTIONS = Object.values(
   ChainId

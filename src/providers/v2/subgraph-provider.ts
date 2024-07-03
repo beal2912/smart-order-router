@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@uniswap/sdk-core';
+import { Token } from '@uniswap/sdk-core';
 import retry from 'async-retry';
 import Timeout from 'await-timeout';
 import { gql, GraphQLClient } from 'graphql-request';
@@ -7,6 +7,7 @@ import _ from 'lodash';
 import { log } from '../../util/log';
 import { metric } from '../../util/metric';
 import { ProviderConfig } from '../provider';
+import { ChainId } from '../../util';
 
 export interface V2SubgraphPool {
   id: string;
@@ -108,10 +109,9 @@ export class V2SubgraphProvider implements IV2SubgraphProvider {
     let pools: RawV2SubgraphPool[] = [];
 
     log.info(
-      `Getting V2 pools from the subgraph with page size ${this.pageSize}${
-        providerConfig?.blockNumber
-          ? ` as of block ${providerConfig?.blockNumber}`
-          : ''
+      `Getting V2 pools from the subgraph with page size ${this.pageSize}${providerConfig?.blockNumber
+        ? ` as of block ${providerConfig?.blockNumber}`
+        : ''
       }.`
     );
 

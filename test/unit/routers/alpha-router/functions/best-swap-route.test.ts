@@ -1,11 +1,12 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId, Fraction, TradeType } from '@uniswap/sdk-core';
+import { Fraction, TradeType } from '@uniswap/sdk-core';
 import { Pair } from '@uniswap/v2-sdk';
 import { Pool } from '@uniswap/v3-sdk';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 import sinon from 'sinon';
 import {
+  ChainId,
   CurrencyAmount,
   DAI_MAINNET,
   IGasModel,

@@ -1,11 +1,11 @@
 import { Interface } from '@ethersproject/abi';
 import { BigNumber } from '@ethersproject/bignumber';
 import { parseBytes32String } from '@ethersproject/strings';
-import { ChainId, Token } from '@uniswap/sdk-core';
+import { Token } from '@uniswap/sdk-core';
 import _ from 'lodash';
 
 import { IERC20Metadata__factory } from '../types/v3/factories/IERC20Metadata__factory';
-import { log, WRAPPED_NATIVE_CURRENCY } from '../util';
+import { ChainId, log, WRAPPED_NATIVE_CURRENCY } from '../util';
 
 import { IMulticallProvider, Result } from './multicall-provider';
 import { ProviderConfig } from './provider';
@@ -687,12 +687,93 @@ export const DAI_ZKSYNC = new Token(
   'DAI',
   'Dai Stablecoin'
 );
+export const USDC_TEVMOS = new Token(
+  ChainId.TEVMOS,
+  '0xBf6942D20D1460334B9b147199c4f03c97b70d02',
+  6,
+  'USDC',
+  'USDC'
+);
+export const WAVAX_TEVMOS = new Token(
+  ChainId.TEVMOS,
+  '0xBeFe898407483f0f2fF605971FBD8Cf8FbD8B160',
+  18,
+  'WAVAX',
+  'Wrapped Avax'
+);
 
+export const USDC_EVMOS = new Token(
+  ChainId.EVMOS,
+  '0x15c3eb3b621d1bff62cba1c9536b7c1ae9149b57',
+  6,
+  'USDC',
+  'USDC'
+);
+export const WEVMOS_EVMOS = new Token(
+  ChainId.EVMOS,
+  '0xd4949664cd82660aae99bedc034a0dea8a0bd517',
+  18,
+  'WEVMOS',
+  'Wrapped EVMOS'
+);
+
+export const STEVMOS_EVMOS = new Token(
+  ChainId.EVMOS,
+  '0x2C68D1d6aB986Ff4640b51e1F14C716a076E44C4',
+  18,
+  'stEVMOS',
+  'Stride Staked Evmos'
+);
+
+
+export const ETH_EVMOS = new Token(
+  ChainId.EVMOS,
+  '0x50dE24B3f0B3136C50FA8A3B8ebc8BD80a269ce5',
+  18,
+  'axlWETH',
+  'Wrapped Ether - Axelar'
+);
+export const WWETH_EVMOS = new Token(
+  ChainId.EVMOS,
+  '0x4d036a97e9ad9e805f0e7b163ea681b3de83b7bf',
+  8,
+  'WWETH',
+  'Wrapped Ether - Wormhole'
+);
+export const STATOM_EVMOS = new Token(
+  ChainId.EVMOS,
+  '0xB5124FA2b2cF92B2D469b249433BA1c96BDF536D',
+  6,
+  'stATOM',
+  'Stride Staked Atom'
+);
+export const ATOM_EVMOS = new Token(
+  ChainId.EVMOS,
+  '0xc5e00d3b04563950941f7137b5afa3a534f0d6d6',
+  6,
+  'ATOM',
+  'Cosmos Atom'
+);
+export const USDC_NOBLE_EVMOS = new Token(
+  ChainId.EVMOS,
+  '0xf1faE9eC886C5F6E4ea13dA2456087Bd72F02cD1',
+  6,
+  'USDC',
+  'USDC - Noble'
+);
+
+export const USDT_EVMOS = new Token(
+  ChainId.EVMOS,
+  '0xB8f812B5943ab3BF941D5D4F1de90A4b326c5d8f',
+  6,
+  'USDT',
+  'USDT Kava'
+);
 export class TokenProvider implements ITokenProvider {
   constructor(
     private chainId: ChainId,
     protected multicall2Provider: IMulticallProvider
-  ) {}
+  ) { }
 
   private async getTokenSymbol(
     addresses: string[],
@@ -837,10 +918,8 @@ export class TokenProvider implements ITokenProvider {
       }
 
       log.info(
-        `Got token symbol and decimals for ${
-          Object.values(addressToToken).length
-        } out of ${addresses.length} tokens on-chain ${
-          providerConfig ? `as of: ${providerConfig?.blockNumber}` : ''
+        `Got token symbol and decimals for ${Object.values(addressToToken).length
+        } out of ${addresses.length} tokens on-chain ${providerConfig ? `as of: ${providerConfig?.blockNumber}` : ''
         }`
       );
     }
@@ -916,6 +995,8 @@ export const USDT_ON = (chainId: ChainId): Token => {
       return USDT_ARBITRUM;
     case ChainId.BNB:
       return USDT_BNB;
+    case ChainId.EVMOS:
+      return USDT_EVMOS;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -961,6 +1042,10 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_ZORA;
     case ChainId.ZKSYNC:
       return USDCE_ZKSYNC;
+    case ChainId.TEVMOS:
+      return USDC_TEVMOS;
+    case ChainId.EVMOS:
+      return USDC_NOBLE_EVMOS;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }

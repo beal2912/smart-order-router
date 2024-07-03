@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Protocol } from '@uniswap/router-sdk';
-import { ChainId, TradeType } from '@uniswap/sdk-core';
+import { TradeType } from '@uniswap/sdk-core';
 import {
   DAI_MAINNET,
   USDC_MAINNET,
@@ -9,6 +9,7 @@ import {
 } from '../../../../../../build/main';
 import {
   CachedRoutes,
+  ChainId,
   CurrencyAmount,
   DAI_MAINNET as DAI,
   MixedRoute,

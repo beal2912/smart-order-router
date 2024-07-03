@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import {
-  ChainId,
+
   CurrencyAmount as CurrencyAmountRaw,
   Token,
 } from '@uniswap/sdk-core';
@@ -47,6 +47,8 @@ import {
   USDC_WORMHOLE_CELO,
   USDC_ZKSYNC,
   USDC_ZORA, USDCE_ZKSYNC,
+  USDC_EVMOS,
+  USDC_TEVMOS,
   USDT_ARBITRUM,
   USDT_BNB,
   USDT_GOERLI,
@@ -61,7 +63,7 @@ import {
   ArbitrumGasData,
   IL2GasDataProvider,
 } from '../../../providers/v3/gas-data-provider';
-import { WRAPPED_NATIVE_CURRENCY } from '../../../util';
+import { ChainId, WRAPPED_NATIVE_CURRENCY } from '../../../util';
 import { CurrencyAmount } from '../../../util/amounts';
 import {
   MixedRouteWithValidQuote,
@@ -118,6 +120,8 @@ export const usdGasTokensByChain: { [chainId in ChainId]?: Token[] } = {
   [ChainId.BLAST]: [USDB_BLAST],
   [ChainId.ZORA]: [USDC_ZORA],
   [ChainId.ZKSYNC]: [DAI_ZKSYNC, USDCE_ZKSYNC, USDC_ZKSYNC],
+  [ChainId.TEVMOS]: [USDC_TEVMOS],
+  [ChainId.EVMOS]: [USDC_EVMOS]
 };
 
 export type L1ToL2GasCosts = {

@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId, Token } from '@uniswap/sdk-core';
+import { Token } from '@uniswap/sdk-core';
 import { computePoolAddress, FeeAmount, Pool } from '@uniswap/v3-sdk';
 import retry, { Options as RetryOptions } from 'async-retry';
 import _ from 'lodash';
@@ -10,6 +10,7 @@ import { log } from '../../util/log';
 import { poolToString } from '../../util/routes';
 import { IMulticallProvider, Result } from '../multicall-provider';
 import { ProviderConfig } from '../provider';
+import { ChainId } from '../../util';
 
 type ISlot0 = {
   sqrtPriceX96: BigNumber;
@@ -88,7 +89,7 @@ export class V3PoolProvider implements IV3PoolProvider {
       minTimeout: 50,
       maxTimeout: 500,
     }
-  ) {}
+  ) { }
 
   public async getPools(
     tokenPairs: [Token, Token, FeeAmount][],
@@ -130,10 +131,9 @@ export class V3PoolProvider implements IV3PoolProvider {
     ]);
 
     log.info(
-      `Got liquidity and slot0s for ${poolAddressSet.size} pools ${
-        providerConfig?.blockNumber
-          ? `as of block: ${providerConfig?.blockNumber}.`
-          : ``
+      `Got liquidity and slot0s for ${poolAddressSet.size} pools ${providerConfig?.blockNumber
+        ? `as of block: ${providerConfig?.blockNumber}.`
+        : ``
       }`
     );
 

@@ -1,13 +1,13 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Protocol } from '@uniswap/router-sdk';
-import { ChainId, TradeType } from '@uniswap/sdk-core';
+import { TradeType } from '@uniswap/sdk-core';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 import FixedReverseHeap from 'mnemonist/fixed-reverse-heap';
 import Queue from 'mnemonist/queue';
 
 import { IPortionProvider } from '../../../providers/portion-provider';
-import { HAS_L1_FEE, V2_SUPPORTED } from '../../../util';
+import { ChainId, HAS_L1_FEE, V2_SUPPORTED } from '../../../util';
 import { CurrencyAmount } from '../../../util/amounts';
 import { log } from '../../../util/log';
 import { metric, MetricLoggerUnit } from '../../../util/metric';
@@ -593,7 +593,7 @@ export async function getBestSwapRouteBy(
       }
 
       if (decimalsDiff < 0 && chainId === 324) {
-          log.error(`Decimals diff is negative for ZkSync. This should not happen.
+        log.error(`Decimals diff is negative for ZkSync. This should not happen.
           usdTokenDecimals ${usdTokenDecimals} routeWithValidQuote.gasCostInUSD.currency.decimals
           ${routeWithValidQuote.gasCostInUSD.currency.decimals} ${JSON.stringify(routeWithValidQuote)}`);
       }

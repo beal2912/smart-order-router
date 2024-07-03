@@ -1,5 +1,5 @@
 import { Protocol } from '@uniswap/router-sdk';
-import { ChainId, Token, TradeType } from '@uniswap/sdk-core';
+import { Token, TradeType } from '@uniswap/sdk-core';
 import _ from 'lodash';
 
 import {
@@ -10,6 +10,7 @@ import {
 } from '../../../../routers';
 
 import { CachedRoute } from './cached-route';
+import { ChainId } from '../../../../util';
 
 interface CachedRoutesParams {
   routes: CachedRoute<V3Route | V2Route | MixedRoute>[];

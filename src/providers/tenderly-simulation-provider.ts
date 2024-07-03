@@ -4,7 +4,7 @@ import https from 'https';
 import { MaxUint256 } from '@ethersproject/constants';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { permit2Address } from '@uniswap/permit2-sdk';
-import { ChainId } from '@uniswap/sdk-core';
+
 import { UNIVERSAL_ROUTER_ADDRESS } from '@uniswap/universal-router-sdk';
 import axios, { AxiosRequestConfig } from 'axios';
 import { BigNumber } from 'ethers/lib/ethers';
@@ -21,6 +21,7 @@ import { Erc20__factory } from '../types/other/factories/Erc20__factory';
 import { Permit2__factory } from '../types/other/factories/Permit2__factory';
 import {
   BEACON_CHAIN_DEPOSIT_ADDRESS,
+  ChainId,
   log,
   MAX_UINT160,
   SWAP_ROUTER_02_ADDRESSES,

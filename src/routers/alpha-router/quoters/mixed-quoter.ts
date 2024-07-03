@@ -1,5 +1,5 @@
 import { Protocol } from '@uniswap/router-sdk';
-import { ChainId, Currency, Token, TradeType } from '@uniswap/sdk-core';
+import { Currency, Token, TradeType } from '@uniswap/sdk-core';
 import _ from 'lodash';
 
 import {
@@ -14,6 +14,7 @@ import {
   TokenValidationResult,
 } from '../../../providers';
 import {
+  ChainId,
   CurrencyAmount,
   log,
   metric,

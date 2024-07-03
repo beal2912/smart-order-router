@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Protocol } from '@uniswap/router-sdk';
-import { ChainId, Percent, Token, TradeType } from '@uniswap/sdk-core';
+import { Percent, Token, TradeType } from '@uniswap/sdk-core';
 import { FeeAmount, Pool } from '@uniswap/v3-sdk';
 import brotli from 'brotli';
 import JSBI from 'jsbi';
@@ -26,7 +26,7 @@ import {
   V2RouteWithValidQuote,
   V3RouteWithValidQuote,
 } from '../routers';
-import { CurrencyAmount, log, WRAPPED_NATIVE_CURRENCY } from '../util';
+import { ChainId, CurrencyAmount, log, WRAPPED_NATIVE_CURRENCY } from '../util';
 
 import { Pair } from '@uniswap/v2-sdk';
 import { opStackChains } from './l2FeeChains';
@@ -481,10 +481,10 @@ export function initSwapRouteFromExisting(
 
   const quoteGasAndPortionAdjusted = swapRoute.portionAmount
     ? portionProvider.getQuoteGasAndPortionAdjusted(
-        swapRoute.trade.tradeType,
-        quoteGasAdjusted,
-        swapRoute.portionAmount
-      )
+      swapRoute.trade.tradeType,
+      quoteGasAdjusted,
+      swapRoute.portionAmount
+    )
     : undefined;
   const routesWithValidQuotePortionAdjusted =
     portionProvider.getRouteWithQuotePortionAdjusted(
@@ -507,10 +507,10 @@ export function initSwapRouteFromExisting(
     blockNumber: BigNumber.from(swapRoute.blockNumber),
     methodParameters: swapRoute.methodParameters
       ? ({
-          calldata: swapRoute.methodParameters.calldata,
-          value: swapRoute.methodParameters.value,
-          to: swapRoute.methodParameters.to,
-        } as MethodParameters)
+        calldata: swapRoute.methodParameters.calldata,
+        value: swapRoute.methodParameters.value,
+        to: swapRoute.methodParameters.to,
+      } as MethodParameters)
       : undefined,
     simulationStatus: swapRoute.simulationStatus,
     portionAmount: swapRoute.portionAmount,

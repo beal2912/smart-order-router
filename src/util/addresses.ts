@@ -1,9 +1,11 @@
 import {
-  ChainId,
+
   CHAIN_TO_ADDRESSES_MAP,
   SWAP_ROUTER_02_ADDRESSES as SWAP_ROUTER_02_ADDRESSES_HELPER,
   Token,
 } from '@uniswap/sdk-core';
+import { ChainId } from './chains'
+
 import { FACTORY_ADDRESS } from '@uniswap/v3-sdk';
 
 import { NETWORKS_WITH_SAME_UNISWAP_ADDRESSES } from './chains';
@@ -16,6 +18,22 @@ export const BNB_SWAP_ROUTER_02_ADDRESS =
   CHAIN_TO_ADDRESSES_MAP[ChainId.BNB].swapRouter02Address!;
 export const BNB_V3_MIGRATOR_ADDRESS =
   CHAIN_TO_ADDRESSES_MAP[ChainId.BNB].v3MigratorAddress;
+
+
+const TEVMOS_V3_CORE_FACTORY_ADDRESSES = '0x18107600e90ced8B7d8a4E2DaAE7360522f880B2';
+const TEVMOS_QUOTER_ADDRESSES = '0x0F70b839BDdC6E95113cA3A51dFfC0CEd73d55a5';
+const TEVMOS_MULTICALL_ADDRESS = '0x5E9848eBE701d519bcd18fDa07f9432E6fb63dff';
+
+const EVMOS_V3_CORE_FACTORY_ADDRESSES = '0xf544365e7065966f190155F629cE0182fC68Eaa2';
+const EVMOS_QUOTER_ADDRESSES = '0xacDD67285fFeF73c9C6778019d2fF0A75547048a';
+const EVMOS_MULTICALL_ADDRESS = '0xcF30595B19B299664e8d2CedF41EC8FA859F97b1';
+
+
+
+
+
+
+
 
 export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
   ...constructSameAddressMap(FACTORY_ADDRESS),
@@ -41,6 +59,8 @@ export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
   [ChainId.BLAST]: CHAIN_TO_ADDRESSES_MAP[ChainId.BLAST].v3CoreFactoryAddress,
   [ChainId.ZORA]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZORA].v3CoreFactoryAddress,
   [ChainId.ZKSYNC]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZKSYNC].v3CoreFactoryAddress,
+  [ChainId.TEVMOS]: TEVMOS_V3_CORE_FACTORY_ADDRESSES,
+  [ChainId.EVMOS]: EVMOS_V3_CORE_FACTORY_ADDRESSES,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
@@ -66,6 +86,8 @@ export const QUOTER_V2_ADDRESSES: AddressMap = {
   [ChainId.BLAST]: CHAIN_TO_ADDRESSES_MAP[ChainId.BLAST].quoterAddress,
   [ChainId.ZORA]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZORA].quoterAddress,
   [ChainId.ZKSYNC]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZKSYNC].quoterAddress,
+  [ChainId.TEVMOS]: TEVMOS_QUOTER_ADDRESSES,
+  [ChainId.EVMOS]: EVMOS_QUOTER_ADDRESSES,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
@@ -115,10 +137,12 @@ export const UNISWAP_MULTICALL_ADDRESSES: AddressMap = {
   [ChainId.BLAST]: CHAIN_TO_ADDRESSES_MAP[ChainId.BLAST].multicallAddress,
   [ChainId.ZORA]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZORA].multicallAddress,
   [ChainId.ZKSYNC]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZKSYNC].multicallAddress,
+  [ChainId.TEVMOS]: TEVMOS_MULTICALL_ADDRESS,
+  [ChainId.EVMOS]: EVMOS_MULTICALL_ADDRESS,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
-export const SWAP_ROUTER_02_ADDRESSES= (chainId: number): string => {
+export const SWAP_ROUTER_02_ADDRESSES = (chainId: number): string => {
   return SWAP_ROUTER_02_ADDRESSES_HELPER(chainId) ?? '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45';
 };
 
@@ -162,6 +186,8 @@ export const WETH9: {
     | ChainId.AVALANCHE
     // TODO: remove ROOTSTOCK once we support both at the routing level
     | ChainId.ROOTSTOCK
+    | ChainId.TEVMOS
+    | ChainId.EVMOS
   >]: Token;
 } = {
   [ChainId.MAINNET]: new Token(
